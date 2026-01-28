@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #fecfef, #ffecd2);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Confetti animation */
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff6b6b;
+            animation: fall 5s linear infinite;
+        }
+        
+        .confetti-piece:nth-child(2n) {
+            background-color: #4ecdc4;
+        }
+        
+        .confetti-piece:nth-child(3n) {
+            background-color: #ffe66d;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        
+        /* Balloon styles */
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #ff4757);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: #333;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Main content */
+        .container {
+            text-align: center;
+            padding: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+        
+        p {
+            font-size: 1.2em;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        /* Wishes section */
+        .wishes {
+            margin-top: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .wish-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .wish-card p {
+            color: #333;
+            text-shadow: none;
+            font-style: italic;
+        }
+        
+        /* Pictures carousel */
+        .pictures {
+            margin-top: 40px;
+        }
+        
+        .pictures h2 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+        
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 600px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .carousel-inner {
+            display: flex;
+            animation: slide 15s infinite; /* Adjusted for 5 images */
+        }
+        
+        .carousel img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-200px); }
+            40% { transform: translateX(-400px); }
+            60% { transform: translateX(-600px); }
+            80% { transform: translateX(-800px); }
+            100% { transform: translateX(0); }
+        }
+        
+        /* Birthday cake */
+        .cake {
+            margin: 40px auto;
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(to bottom, #d2691e, #8b4513);
+            border-radius: 50% 50% 0 0;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .cake:hover {
+            transform: scale(1.05);
+        }
+        
+        .cake::before {
+            content: '🎂';
+            font-size: 4em;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .candles {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .candle {
+            width: 5px;
+            height: 30px;
+            background: #fff;
+            border-radius: 2px;
+        }
+        
+        .flame {
+            width: 8px;
+            height: 15px;
+            background: #ff4500;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flicker 1s infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Countdown timer */
+        .countdown {
+            margin: 40px 0;
+            font-size: 1.5em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Fun facts */
+        .fun-facts {
+            margin: 40px 0;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .fun-facts p {
+            color: #333;
+            text-shadow: none;
+        }
+        
+        /* Music player */
+        .music {
+            margin: 40px 0;
+        }
+        
+        /* Quiz section */
+        .quiz {
+            margin: 40px 0;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .quiz h3 {
+            color: #333;
+        }
+        
+        .quiz button {
+            margin: 10px;
+            padding: 10px 20px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .quiz button:hover {
+            background: #ff4757;
+        }
+        
+        /* Virtual gifts */
+        .gifts {
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .gift {
+            width: 100px;
+            height: 100px;
+            background: #ffe66d;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            transition: transform 0.3s;
+        }
+        
+        .gift:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Message board */
+        .message-board {
+            margin: 40px 0;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .message-board input, .message-board textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .messages {
+            margin-top: 20px;
+        }
+        
+        .message {
+            background: #f9f9f9;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        /* Memory lane timeline */
+        .timeline {
+            margin: 40px 0;
+            position: relative;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: #fff;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            position: relative;
+            width: 45%;
+        }
+        
+        .timeline-item.left {
+            margin-left: 0;
+        }
+        
+        .timeline-item.right {
+            margin-left: 55%;
+        }
+
+        /* Music player */
+        .music {
+            margin: 40px 0;
+        }
+        
+        /* Fireworks */
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            display: none;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+        
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(10); opacity: 0; }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            p { font-size: 1em; }
+            .wish-card { width: 100%; }
+            .carousel { width: 100%; }
+            .carousel img { width: 150px; height: 150px; }
+            .timeline-item { width: 100%; margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Confetti elements -->
+    <div class="confetti">
+        <div class="confetti-piece" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="confetti-piece" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="confetti-piece" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="confetti-piece" style="left: 40%; animation-delay: 3s;"></div>
+        <div class="confetti-piece" style="left: 50%; animation-delay: 4s;"></div>
+        <div class="confetti-piece" style="left: 60%; animation-delay: 0.5s;"></div>
+        <div class="confetti-piece" style="left: 70%; animation-delay: 1.5s;"></div>
+        <div class="confetti-piece" style="left: 80%; animation-delay: 2.5s;"></div>
+        <div class="confetti-piece" style="left: 90%; animation-delay: 3.5s;"></div>
+    </div>
+    
+    <!-- Balloons -->
+    <div class="balloon" style="left: 10%; top: 20%;"></div>
+    <div class="balloon" style="left: 80%; top: 30%;"></div>
+    <div class="balloon" style="left: 50%; top: 50%;"></div>
+    <div class="balloon" style="left: 25%; top: 60%;"></div>
+    <div class="balloon" style="left: 75%; top: 70%;"></div>
+    
+    <!-- Fireworks container -->
+    <div class="fireworks" id="fireworks"></div>
+    
+    <!-- Main content -->
+    <div class="container">
+        <h1>Happy Birthday!</h1>
+        <p>Wishing you a day filled with joy, laughter, and all your favorite things. 🎉</p>
+        
+        <!-- Countdown timer -->
+        <div class="countdown" id="countdown">HAPPY BIRTHDAY SAMI</div>
+        
+        <!-- Interactive cake -->
+        <div class="cake" onclick="blowOutCandles()">
+            <div class="candles">
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+            </div>
+        </div>
+        <p style="color: #fff;">Click the cake to blow out the candles!</p>
+        
+        <!-- Fun facts -->
+        <div class="fun-facts">
+            <h3>Birthday Fun Fact</h3>
+            <p id="fun-fact">Did you know?
+                person who born on january 29, creative Aquarians with a Garnet birthstone and carnation flower. Famous personalities born on this day include Nadir Aslam, Oprah Winfrey, Tom Selleck, and W.C. Fields.</p>
+        </div>
+        
+        <!-- Quiz -->
+        <div class="quiz">
+            <h3>Test Your love: Birthday Quiz!</h3>
+            <p id="question">who is saba's favorite person?</p>
+            <button onclick="answer('Sami')">Sami</button>
+            <button onclick="answer('Nadir')">Nadir</button>
+            <p id="result"></p>
+        </div>
+
+          <!-- Virtual gifts -->
+        <div class="gifts">
+            <div class="gift" onclick="openGift(1)">🎁</div>
+            <div class="gift" onclick="openGift(2)">🎀</div>
+            <div class="gift" onclick="openGift(3)">💝</div>
+        </div>
+        <p id="gift-message" style="color: #fff;"></p>
+        
+        <!-- Wishes section -->
+        <div class="wishes">
+            <div class="wish-card">
+                <p>"Happy Birthday meri jan."</p>
+            </div>
+            <div class="wish-card">
+                <p>"May all your dreams come true and your year be filled with love and success."</p>
+            </div>
+            <div class="wish-card">
+                <p>"Cheers to you on your special day! Wishing you endless fun, good health, and unforgettable memories."</p>
+            </div>
+            <div class="wish-card">
+                <p>"Another year wiser, another year happier! Happy Birthday – you deserve all the best."</p>
+            </div>
+        </div>
+        
+        <!-- Pictures carousel -->
+        <div class="pictures">
+            <h2>Memorable Moments</h2>
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <img src="pic1.jpg" alt="Birthday pic 1">
+                    <img src="pic2.jpg" alt="Birthday pic 2">
+                    <img src="pic3.jpg" alt="Birthday pic 3">
+                    <img src="pic4.jpg" alt="Birthday pic 4">
+                    <img src="pic5.jpg" alt="Birthday pic 5"> <!-- Added 5th pic -->
+                </div>
+            </div>
+        </div>
+        
+         <!-- Music player -->
+        <div class="music">
+            <h2>Play a Birthday Tune</h2>
+            <audio controls>
+                <source src="song.mp3" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <!-- Memory lane timeline -->
+        <div class="timeline">
+            <h2 style="color: #fff;">Memory Lane</h2>
+            <div class="timeline-item left">
+                <h4>Birth Year</h4>
+                <p>1998</p>
+            </div>
+            <div class="timeline-item right">
+                <h4>present year</h4>
+                <p>2026</p>
